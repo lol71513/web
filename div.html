@@ -1,0 +1,126 @@
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript">
+			var svgNS = "http://www.w3.org/2000/svg";
+			var grid=[
+			{text:"a",x:1,y:1},{text:"b",x:1,y:2},{text:"c",x:1,y:3},
+			{text:"d",x:2,y:1},{text:"f",x:2,y:3},
+			{text:"d",x:3,y:1},{text:"e",x:3,y:2},{text:"f",x:3,y:3}
+			
+			];
+			var griddata = {width:10,height:10};
+			var display = function(){
+				var myDOM = document.getElementById( "myDOM" );
+				for(var it in grid){
+					var iterator = grid[it];
+					var item = document.getElementById( "gird_" + it );
+					//console.log(it);
+					if(item == null){
+						item = document.createElementNS(svgNS,'rect');
+						myDOM.appendChild(item);
+						item.setAttribute("id", "gird_" + it );
+					}
+					item.setAttribute('width', griddata.width);
+					item.setAttribute('height', griddata.height);
+					item.setAttribute('x', (griddata.width+0.5) * iterator.x-10);
+					item.setAttribute('y', (griddata.height+0.5) * iterator.y-10);
+					item.style.fill="pink";
+				}
+			}
+	</script>
+</head>
+<body>
+	<style type="text/css">
+	#container{
+		border:1px #666 dashed;
+		width:100%;
+		margin:0 auto;
+	}
+	#headbox{
+		background-color:#FFD4D4;
+		width:98%;
+		height:10%;
+		border:1px #666 dashed;
+		margin:0 auto;
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+	#headbox2{
+		background-color:#FFD4D4;
+		width:98%;
+		height:10%;
+		border:1px #666 dashed;
+		margin:0 auto;
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+	#sidebar_left{
+		background-color:#FFECC9;
+		width:14%;
+		height:60%;
+		border:1px #666 dashed;
+		margin-left:1%;
+		margin-top:5px;
+		margin-bottom:5px;
+		float:left;
+	}
+	#sidebar_right{
+		background-color:#FFECC9;
+		width:14%;
+		height:60%;
+		border:1px #666 dashed;
+		margin-right:1%;
+		margin-top:5px;
+		margin-bottom:5px;
+		float:right;
+	}
+	#sidebody{
+		background-color:#FFECC9;
+		position: relative;
+		width:68%;
+		height:60%;
+		border:1px #666 dashed;
+		margin-left:1%;
+		margin-top:5px;
+		margin-bottom:5px;
+		float:left;
+		text-align:center;
+	}
+	#clear{
+		clear:both;
+	}
+	#footer{
+		background-color:#FFD4D4;
+		width:98%;
+		height:15%;
+		border:1px #666 dashed;
+		margin-top:5px;
+		margin-left:1%;
+		margin-bottom:1%;
+	}
+	#myDOM{
+		position: relative;
+		left: 35%;		
+	}
+	</style>
+	<div id="container">
+		<div id="headbox">head</div>
+		<div id="headbox2">head2</div>
+		<div id="sidebar_left">left</div>
+		<div id="sidebody">
+			<button input="button" onclick="display()">
+				add
+			</button><br/>
+			<svg id="myDOM" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+				<rect  width="32" height="32" style="fill:blue;opacity:0.7"/>
+				<text x="11" y="17" fill="white" style="font-size:5px;">基隆</text>
+			</svg>
+		</div>
+		<div id="sidebar_right">right</div>
+		<div id="clear"></div>
+		<div id="footer">footer</div>
+	</div>
+</body>
+</html>

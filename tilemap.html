@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+		<script type="text/javascript">
+			var svgNS = "http://www.w3.org/2000/svg";
+			var grid=[
+			{text:"a",x:1,y:1},{text:"b",x:1,y:2},{text:"c",x:1,y:3},
+			{text:"d",x:2,y:1},{text:"f",x:2,y:3},
+			{text:"d",x:3,y:1},{text:"e",x:3,y:2},{text:"f",x:3,y:3}
+			
+			];
+			var griddata = {width:10,height:10};
+			var display = function(){
+				var myDOM = document.getElementById( "myDOM" );
+				for(var it in grid){
+					var iterator = grid[it];
+					var item = document.getElementById( "gird_" + it );
+					//console.log(it);
+					if(item == null){
+						item = document.createElementNS(svgNS,'rect');
+						myDOM.appendChild(item);
+						item.setAttribute("id", "gird_" + it );
+					}
+					item.setAttribute('width', griddata.width);
+					item.setAttribute('height', griddata.height);
+					item.setAttribute('x', (griddata.width+0.5) * iterator.x+20);
+					item.setAttribute('y', (griddata.height+0.5) * iterator.y+5);
+					item.style.fill="pink";
+				}
+			}
+			
+			function tick() {
+				requestAnimFrame(tick);
+				//display();
+				//animate();
+			}
+			
+			var myFunction = function(){
+				display();
+				
+			}
+			
+		  
+		</script>
+	</head>
+	<body onload="webGLStart();">
+		<text x="41" y="33" fill="white" style="font-size:50px;">還敢下來R!冰鳥</text>
+		<button input="button" onclick="myFunction()">add</button>
+		<svg id="myDOM" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+		  <circle onclick="myFunction()" cx="5" cy="5" r="5" style="opacity:0.5;fill:pink"/>
+		  <rect x="30" y="15" width="32" height="32" style="fill:blue;opacity:0.7"/>
+		  <text x="41" y="33" fill="white" style="font-size:5px;">基隆</text>
+		</svg>
+	</body>
+</html>
