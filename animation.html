@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body onscroll="myFunction()">
+	<style type="text/css">
+		.rect{
+			width:10%;
+			height:13%;
+			background-color:#FFD4D4;
+			opacity:0.7;
+			float:right;
+			position: relative;
+		}
+		.rect1{
+			width:10%;
+			height:13%;
+			background-color:#FFD4D4;
+			opacity:0.7;
+			margin-right:1%;
+			float:right;
+			position: relative;
+		}
+		.slideUp{
+			width:10%;
+			height:13%;
+			background-color:#FFD4D4;
+			opacity:0.7;
+			animation-name: slideUp;
+			animation-duration: 3s;
+			animation-fill-mode: forwards;
+			float:right;
+			
+		}
+		.slideUp1{
+			width:10%;
+			height:13%;
+			background-color:#FFD4D4;
+			opacity:0.7;
+			animation-name: slideUp;
+			animation-duration: 3s;
+			animation-fill-mode: forwards;
+			float:right;
+			margin-right:1%;
+		}
+		@keyframes slideUp{
+			0%		{background: red; transform: translateY(0%);}
+			100%	{background: blue;transform: translateY(700%);}
+		}
+	</style>
+	<script>
+		window.onscroll = function() {myFunction()};
+		function myFunction() {
+			if(document.body.scrollTop>10||document.documentElement.scrollTop > 10){
+				document.getElementById("rect").className = "slideUp";
+				document.getElementById("rect1").className = "slideUp1";
+			}else{
+				document.getElementById("rect").className = "rect";
+				document.getElementById("rect1").className = "rect1";
+			}
+		}
+	</script>
+	<svg>
+		<div class="rect" id="rect">  </div>
+		<div class="rect1"id="rect1"> </div>
+	</svg>
+	<img src="test.jpeg" style="float:left">
+</body>
+</html>
