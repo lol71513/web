@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+
+		<script src="https://d3js.org/topojson.v1.min.js"></script>
+	</head>
+	<body>
+		<div class="class">
+			Hello World!    
+		</div>
+		
+		<svg width="1000px" height="600px"></svg>
+      
+		<script>	
+			countyMap();
+			d3.json("file:///C:/Users/user/Desktop/taiwan-map-d3-master/map/taiwan.json",function(data){
+				console.log(data);
+				
+			});
+
+			function countyMap(){
+			/* 放置你的TopoJSON路徑 */
+				d3.json("file:///C:/Users/user/Desktop/taiwan-map-d3-master/map/taiwan.json", function(error, map) {
+					if (error) return console.error(error);
+				/* 
+					center: 設定地圖中心經緯度
+					scale: 設定地圖大小
+					translate: 設定地圖在svg上的中心位置
+					on: 可以設定事件觸發，可設定參數有mousedown、mouseup、click、dblclick、mouseover、mouseout、mouseenter、mouseleave
+					call(zoom): 呼叫zoom進行放大縮小滑動
+				*/
+					projection = d3.geo.mercator().center([121,23,5]).scale(8000).translate([600,400]);
+					/* 將資料轉換成城SVG Path標籤的轉換函式 */
+					path = d3.geo.path().projection(projection);
+					console.log(map.objects);
+					console.log(topojson.feature(map, map.objects["County_WGS84"]).features);
+					/* 將資料中的特徵取出，map為JSON檔的資料，後方則是在JSON中，要取出特徵的部分 */
+					features = topojson.feature(map, map.objects["County_WGS84"]).features;
+					/* 利用D3c.js畫出svg */
+					d3.select("svg").selectAll("path").data(features).enter().append("path").attr({
+						d: path,	
+						fill: "#9EF89E",						
+						class: "area"
+					})
+					/* 標點 */
+					/* 第一個抓不到，往上測試範例多為csv檔，所以第一欄放欄位資訊，所以不會有誤，但如果是抓資料庫，就得注意第一行的問題 */
+					var markerObject = [
+						{},
+						{title: '臺北火車站', lat: 25.0477546, lng: 121.514861},
+						{title: '台中火車站', lat: 24.1369207, lng: 120.682955},
+						{title: '高雄火車站', lat: 22.6397664, lng: 120.2999183}
+					];
+					setMarker(markerObject);
+				});
+				
+		}
+		function setMarker(data)
+		{
+			/* 
+				採用image方式，也可以選擇circle方式
+				pinWidth: 我自己設定的圖片寬度，方便調整
+				href: 設定圖片位置
+				projection: 利用projection來將經緯度轉換成svg上位置
+				on: 設定點擊後的事件
+			*/
+			var pinWidth = 60;
+			var g = d3.select("svg").append("g");
+			d3.select("svg").selectAll("g").data(data).enter().append("image").attr({
+				href: function(d) {
+					return 'data:image/png;base64,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'
+				},
+				x: function(d) {
+					return projection([d.lng, d.lat])[0]-(pinWidth/2);
+				},
+				y: function(d) {
+					return projection([d.lng, d.lat])[1]-pinWidth
+				},
+				height: pinWidth,
+				width: pinWidth,
+				class: function(d) {
+					return d.title
+				}
+			})
+		}
+		
+		</script>
+	</body>
+</html>
+
